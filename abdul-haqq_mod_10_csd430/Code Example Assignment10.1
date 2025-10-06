@@ -1,0 +1,44 @@
+// File: WelcomeTag.java
+package com.example.tags;
+import jakarta.servlet.jsp.tagext.*;
+import jakarta.servlet.jsp.*;
+import java.io.IOException;
+
+public class WelcomeTag extends SimpleTagSupport {
+    private String user;
+
+    public void setUser(String user) { this.user = user; }
+
+    @Override
+    public void doTag() throws JspException, IOException {
+        JspWriter out = getJspContext().getOut();
+        out.println("Welcome, " + user + "! Have a great day!");
+    }
+}
+
+
+// Tag library descriptor (TLD)
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="https://jakarta.ee/xml/ns/jakartaee" version="3.0">
+  <tlib-version>1.0</tlib-version>
+  <short-name>mytags</short-name>
+  <tag>
+    <name>welcome</name>
+    <tag-class>com.example.tags.WelcomeTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>user</name>
+      <required>true</required>
+    </attribute>
+  </tag>
+</taglib>
+
+
+// JSP Page Usage
+<%@ taglib uri="WEB-INF/mytags.tld" prefix="mylib" %>
+<html>
+<body>
+    <mylib:welcome user="Nilam"/>
+</body>
+</html>
+
